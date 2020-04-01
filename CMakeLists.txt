@@ -233,15 +233,6 @@ IF(MSVC)
   
   SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
-
-  # SSE2 optimizations
-  # No need to specify if building for x64 (actually, it generates an annoying warning)
-  if (NOT MSVC_ARM)
-    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
-        ADD_DEFINITIONS("/arch:SSE2")
-    endif()
-  endif()
-
   
   
   IF (BUILD_SHARED_LIBS)
