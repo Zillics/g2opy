@@ -173,8 +173,8 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
   
   IF(NOT "${ARCH}" MATCHES "arm")
     # Generic settings for optimisation
-    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
+    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
+    SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
   ENDIF()
 
   IF(G2O_FAST_MATH)
@@ -233,6 +233,15 @@ IF(MSVC)
   
   SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+
+  # SSE2 optimizations
+  # No need to specify if building for x64 (actually, it generates an annoying warning)
+  if (NOT MSVC_ARM)
+    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+        ADD_DEFINITIONS("/arch:SSE2")
+    endif()
+  endif()
+
   
   
   IF (BUILD_SHARED_LIBS)
