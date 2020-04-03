@@ -229,29 +229,6 @@ DEFINE_SSE_VAR(SSE4_1)
 DEFINE_SSE_VAR(SSE4_2)
 DEFINE_SSE_VAR(SSE4_A)
 
-# Add build flags for clang AND GCC
-if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" OR CMAKE_COMPILER_IS_GNUCXX)
-  # SSE2?
-  if (CMAKE_G2O_HAS_SSE2)
-    add_compile_options(-msse2)
-  endif()
-  # SSE3?
-  if (CMAKE_G2O_HAS_SSE3)
-    add_compile_options(-msse3 -mssse3)
-  endif()
-  # SSE4*?
-  if (CMAKE_G2O_HAS_SSE4_1)
-    add_compile_options(-msse4.1)
-  endif()
-  if (CMAKE_G2O_HAS_SSE4_2)
-    add_compile_options(-msse4.2)
-  endif()
-  if (CMAKE_G2O_HAS_SSE4_A)
-    add_compile_options(-msse4a)
-  endif()
-endif()
-# End of of SSE* autodetect code -------
-
 # Compiler specific options for gcc
 if(CMAKE_COMPILER_IS_GNUCXX)
   option (BUILD_WITH_MARCH_NATIVE "Build with \"-march native\"" OFF)
